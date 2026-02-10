@@ -11,6 +11,7 @@ function App() {
         <Home />
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }
