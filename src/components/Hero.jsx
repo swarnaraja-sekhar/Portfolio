@@ -58,13 +58,6 @@ export default function Hero() {
                             />
                         </div>
 
-                        {/* Floating Badges (Optional decoration) */}
-                        <div className="absolute -right-8 top-10 bg-white p-3 rounded-lg shadow-xl animate-bounce delay-75 hidden lg:block">
-                            <span className="text-2xl">🚀</span>
-                        </div>
-                        <div className="absolute -left-8 bottom-20 bg-white p-3 rounded-lg shadow-xl animate-bounce delay-100 hidden lg:block">
-                            <span className="text-2xl">💻</span>
-                        </div>
                     </div>
                 </div>
 
