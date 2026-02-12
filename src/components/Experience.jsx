@@ -5,22 +5,22 @@ export default function Experience() {
     const experiences = [
         {
             title: "Frontend Developer Intern",
-            company: "Tech Solutions Inc.",
-            duration: "Jan 2023 - Jun 2023",
+            company: "Cognetix Technologies",
+            duration: "Jan 2026 - Feb 2026",
             description:
-                "Assisted in developing responsive user interfaces using React.js. Collaborated with the design team to implement modern UI/UX principles.",
+                "Completed an intensive Full Stack Web Development internship, delivering production-ready MERN stack projects with secure authentication, REST APIs, and responsive user interfaces.",
         },
         {
             title: "Full Stack Developer Trainee",
-            company: "CodeAcademy",
-            duration: "Jul 2022 - Dec 2022",
+            company: "PentechAI Solutions",
+            duration: "Jul 2025 - Sep 2025",
             description:
                 "Completed intensive training in MERN stack development. built several full-stack projects including a blog platform and a chat application.",
         },
         {
-            title: "Computer Science Degree",
-            company: "University of Technology",
-            duration: "2019 - 2023",
+            title: "Computer Science and Engineering",
+            company: "Rajiv Gandhi University Of Knowledge Technologies, Ongole",
+            duration: "2023 - 2027",
             description:
                 "Graduated with honors. Focused on Software Engineering, Data Structures, and Algorithms. Led the university coding club.",
         },
