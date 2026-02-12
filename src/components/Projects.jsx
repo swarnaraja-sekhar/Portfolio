@@ -31,7 +31,7 @@ const projects = [
         title: "Job Portal",
         description: "A comprehensive job board connecting employers and seekers, featuring resume uploads, job posting, and application tracking.",
         techStack: ["MERN Stack", "JWT", "Tailwind CSS"],
-        link: "https://cognetix-job-portal.vercel.app/register",
+        link: "https://cognetix-job-portal.vercel.app/",
         github: "https://github.com/swarnaraja-sekhar/Cognetix_Job_portal.git",
         image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&q=80",
     },
