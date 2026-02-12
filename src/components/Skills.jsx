@@ -6,13 +6,13 @@ export default function Skills() {
         {
             category: "Frontend",
             icon: <Globe size={24} className="text-blue-600" />,
-            skills: ["React", "HTML5", "CSS3", "JavaScript (ES6+)", "Tailwind CSS", "Redux", "Bootstrap"],
+            skills: ["React", "HTML5", "CSS3", "JavaScript (ES6+)", "Tailwind CSS", "Bootstrap"],
             color: "blue"
         },
         {
             category: "Backend",
             icon: <Code size={24} className="text-green-600" />,
-            skills: ["Node.js", "Express.js", "REST APIs", "Authentication (JWT)", "GraphQL"],
+            skills: ["Node.js", "Express.js", "REST APIs", "Authentication (JWT)", "GraphQL", "Nextjs"],
             color: "green"
         },
         {
@@ -24,7 +24,7 @@ export default function Skills() {
         {
             category: "Tools & DevOps",
             icon: <Wrench size={24} className="text-orange-600" />,
-            skills: ["Git & GitHub", "Docker", "VS Code", "Postman", "Vite", "Netlify/Vercel"],
+            skills: ["Git & GitHub", "Docker", "VS Code", "Postman", "Vite", "Vercel", "Render", "Netlify"],
             color: "orange"
         },
     ];

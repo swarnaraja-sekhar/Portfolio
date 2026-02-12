@@ -91,6 +91,14 @@ const projects = [
         github: "https://github.com/swarnaraja-sekhar/BeyondChats_Assignment.git",
         image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
     },
+    {
+        title: "Smart Classroom Management System",
+        description: "A smart classroom management system that automates attendance tracking and optimizes students’ free periods through personalized academic activity recommendations aligned with their career goals.",
+        techStack: ["React", "Node.js", "MongoDB", "Express", "AI Recommendations"],
+        link: "https://smart-curriculum-activity-attendanc-rosy.vercel.app/",
+        github: "https://github.com/swarnaraja-sekhar/Smart-Curriculum-Activity-Attendance-App.git",
+        image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80",
+    },
 ];
 
 export default function Projects() {

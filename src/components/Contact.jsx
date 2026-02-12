@@ -42,8 +42,8 @@ export default function Contact() {
                             </div>
                             <div>
                                 <h3 className="text-lg font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">Email</h3>
-                                <a href="mailto:swarna.rajasekhar@example.com" className="text-gray-600 hover:text-blue-600 transition font-medium">
-                                    swarna.rajasekhar@example.com
+                                <a href="mailto:bhuchiki12@gmail.com" className="text-gray-600 hover:text-blue-600 transition font-medium">
+                                    bhuchiki12@gmail.com
                                 </a>
                             </div>
                         </div>
@@ -54,8 +54,8 @@ export default function Contact() {
                             </div>
                             <div>
                                 <h3 className="text-lg font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">LinkedIn</h3>
-                                <a href="https://linkedin.com/in/swarnarajasekhar" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600 transition font-medium">
-                                    linkedin.com/in/swarnarajasekhar
+                                <a href="https://linkedin.com/in/swarna-rajasekhar" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600 transition font-medium">
+                                    linkedin.com/in/swarna-rajasekhar
                                 </a>
                             </div>
                         </div>
@@ -66,8 +66,8 @@ export default function Contact() {
                             </div>
                             <div>
                                 <h3 className="text-lg font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">GitHub</h3>
-                                <a href="https://github.com/swarnarajasekhar" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600 transition font-medium">
-                                    github.com/swarnarajasekhar
+                                <a href="https://github.com/swarnaraja-sekhar" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600 transition font-medium">
+                                    github.com/swarnaraja-sekhar
                                 </a>
                             </div>
                         </div>
