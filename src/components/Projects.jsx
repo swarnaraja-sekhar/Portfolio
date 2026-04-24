@@ -1,195 +1,324 @@
-import React from "react";
-import { ExternalLink, Github } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import eshikshanImg from "../assets/eshikshan.png";
 
-const projects = [
+const featuredProjects = [
     {
-        title: "E-Shikshan ",
-        description: "A MERN-based smart education platform with course enrollment, interactive roadmaps, learning resources, hackathons, resume tools, and role-based dashboards for students, instructors, and admins.",
-        techStack: ["React", "Node.js", "MongoDB", "Express", "Render", "Vercel"],
-        link: "https://e-shikshan.vercel.app/",
-        github: "https://github.com/Aravind210193/E-Shikshan.git",
-        image: eshikshanImg,
+        index: "01",
+        title: "Zenith Holidays",
+        subtitle: "Premium Travel & Booking SaaS",
+        description:
+            "A comprehensive travel and holiday booking platform offering curated tour packages, flight bookings, and seamless itinerary management with a high-performance architecture.",
+        techStack: ["Next.js", "Node.js", "MongoDB", "Express", "Tailwind CSS"],
+        link: "https://www.zenithholidays.com/",
+        github: "#",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80",
+        secondaryImage: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80",
     },
     {
-        title: "E-Commerce Platform",
-        description: "A full-stack e-commerce solution with user authentication, product management, cart functionality, and secure payment integration.",
-        techStack: ["React", "Node.js", "MongoDB", "Express", "Redux"],
-        link: "https://cognetix-ecommerce.vercel.app/",
-        github: "https://github.com/swarnaraja-sekhar/Cognetix_Ecommerce.git",
-        image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80",
+        index: "02",
+        title: "Golden Boy Evolve",
+        subtitle: "Advanced Fitness & Health Tracker",
+        description:
+            "A comprehensive fitness tracking platform featuring interactive data visualization, advanced BMI and TDEE calculators, goal setting, and streak tracking.",
+        techStack: ["React", "TypeScript", "Recharts", "Tailwind CSS", "Vercel"],
+        link: "https://golden-boy-evolve-lime.vercel.app/",
+        github: "#",
+        image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80",
+        secondaryImage: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80",
     },
     {
-        title: "Online Food Ordering App",
-        description: "A seamless food ordering platform offering menu browsing, cart management, and real-time order tracking.",
-        techStack: ["React", "Node.js", "MongoDB", "Express", "Redux"],
-        link: "https://cognetix-food-ordering.vercel.app/",
-        github: "https://github.com/swarnaraja-sekhar/Cognetix_Food_Ordering.git",
-        image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80",
-    },
-    {
-        title: "Job Portal",
-        description: "A comprehensive job board connecting employers and seekers, featuring resume uploads, job posting, and application tracking.",
-        techStack: ["MERN Stack", "JWT", "Tailwind CSS"],
-        link: "https://cognetix-job-portal.vercel.app/",
-        github: "https://github.com/swarnaraja-sekhar/Cognetix_Job_portal.git",
-        image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&q=80",
-    },
-    {
-        title: "Blog Management System",
-        description: "A content management system allowing users to create, edit, and publish blogs with rich text editing and comment sections.",
-        techStack: ["React", "Node.js", "MongoDB", "Express"],
-        link: "https://cognetix-blog-management-system.vercel.app/",
-        github: "https://github.com/swarnaraja-sekhar/Cognetix_Blog_Management__System.git",
-        image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
-    },
-    {
-        title: "Online Recipe Sharing",
-        description: "A community platform for food lovers to share and discover recipes, complete with ingredients lists and cooking instructions.",
-        techStack: ["React", "Firebase", "Tailwind CSS"],
-        link: "https://cognetix-recipe-sharing-platform.vercel.app/",
-        github: "https://github.com/swarnaraja-sekhar/Cognetix_Recipe_Sharing_Platform.git",
-        image: "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=800&q=80",
-    },
-    {
-        title: "Notes Application",
-        description: "A clean and efficient note-taking app supporting organization, tagging, and local storage for quick access.",
-        techStack: ["React", "LocalStorage", "CSS Modules"],
-        link: "https://cognetix-notes-application.vercel.app/",
-        github: "https://github.com/swarnaraja-sekhar/Cognetix_Note_Application.git",
-        image: "https://images.unsplash.com/photo-1517842645767-c639042777db?w=800&q=80",
-    },
-    {
-        title: "Expense Tracker",
-        description: "A personal finance tool to track income and expenses, visualizing spending habits through dynamic charts.",
-        techStack: ["React", "Chart.js", "Context API"],
-        link: "https://swarnaraja-sekhar.github.io/Cognetix_Expense-Tracker/",
-        github: "https://github.com/swarnaraja-sekhar/Cognetix_Expense-Tracker.git",
-        image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80",
-    },
-    {
-        title: "Product Landing Page",
-        description: "A high-conversion landing page featuring modern design, responsive layout, and clear call-to-action sections.",
-        techStack: ["React", "Framer Motion", "Tailwind CSS"],
-        link: "https://swarnaraja-sekhar.github.io/Cognetix_Product_Landing_Page/",
-        github: "https://github.com/swarnaraja-sekhar/Cognetix_Product_Landing_Page.git",
-        image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80",
-    },
-    {
-        title: "Weather Forecasting App",
-        description: "A real-time weather dashboard providing current conditions, 5-day forecasts, and location-based weather updates.",
-        techStack: ["React", "OpenWeather API", "CSS Modules"],
-        link: "https://swarnaraja-sekhar.github.io/Cognetix_Weather_App/",
-        github: "https://github.com/swarnaraja-sekhar/Cognetix_Weather_App.git",
-        image: "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&q=80",
-    },
-    {
-        title: "BeyondChats Article Management System",
-        description: "Full-stack article management system that scrapes blog content, enhances it using AI, and delivers optimized articles through a responsive React interface with a scalable Express–MongoDB backend.",
-        techStack: ["React", "Express", "MongoDB", "AI Integration", "Web Scraping"],
-        link: "https://beyond-chats-assignment-theta.vercel.app/",
-        github: "https://github.com/swarnaraja-sekhar/BeyondChats_Assignment.git",
-        image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80",
-    },
-    {
-        title: "Smart Classroom Management System",
-        description: "A smart classroom management system that automates attendance tracking and optimizes students’ free periods through personalized academic activity recommendations aligned with their career goals.",
-        techStack: ["React", "Node.js", "MongoDB", "Express", "AI Recommendations"],
-        link: "https://smart-curriculum-activity-attendanc-rosy.vercel.app/",
-        github: "https://github.com/swarnaraja-sekhar/Smart-Curriculum-Activity-Attendance-App.git",
-        image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80",
+        index: "03",
+        title: "Palazzo Lakeside Hotel",
+        subtitle: "Luxury Hospitality Platform",
+        description:
+            "A premium hospitality and reservation platform featuring seamless online booking, dynamic room availability, and an elegant visual experience for a lakeside resort.",
+        techStack: ["Next.js", "React", "Node.js", "Tailwind CSS", "PostgreSQL"],
+        link: "https://palazzolakesidehotel.com/",
+        github: "#",
+        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80",
+        secondaryImage: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80",
     },
 ];
 
-export default function Projects() {
+
+
+/* ─── Sticky Scroll Projects ─── */
+function StickyProjects({ projects }) {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const imageRefs = useRef([]);
+
+    useEffect(() => {
+        // Observer for active text
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const index = imageRefs.current.indexOf(entry.target);
+                        if (index !== -1) {
+                            setActiveIndex(index);
+                        }
+                    }
+                });
+            },
+            { threshold: 0.5 }
+        );
+
+        imageRefs.current.forEach((ref) => {
+            if (ref) observer.observe(ref);
+        });
+
+        // Zoom effect on scroll
+        const handleScroll = () => {
+            imageRefs.current.forEach((ref) => {
+                if (ref) {
+                    const rect = ref.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+                    // Calculate distance from center of viewport
+                    const centerOffset = rect.top + rect.height / 2 - windowHeight / 2;
+                    // Calculate scale: 1.0 at edges, up to 1.15 at center
+                    const progress = 1 - Math.min(1, Math.abs(centerOffset) / windowHeight);
+                    const scale = 1 + (progress * 0.15);
+                    const smallScale = 1 + (progress * 0.08);
+                    
+                    const img = ref.querySelector('.scroll-zoom-img');
+                    if (img) img.style.transform = `scale(${scale})`;
+
+                    const smallImg = ref.querySelector('.scroll-zoom-img-small');
+                    if (smallImg) smallImg.style.transform = `scale(${smallScale})`;
+                }
+            });
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll(); // Init
+
+        return () => {
+            observer.disconnect();
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const activeProject = projects[activeIndex] || projects[0];
+
     return (
-        <section id="projects" className="py-24 bg-white">
-            <div className="container mx-auto px-6">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">Featured Projects</h2>
-                    <div className="w-24 h-1.5 bg-blue-600 mx-auto rounded-full shadow-sm"></div>
-                    <p className="text-lg text-gray-600 mt-6 max-w-2xl mx-auto font-light">
-                        A selection of projects that demonstrate my technical expertise and problem-solving abilities.
-                    </p>
+        <>
+            {/* Desktop Sticky Layout */}
+            <div style={{ position: 'relative', display: 'flex', borderBottom: '1px solid rgba(255,255,255,0.08)' }} className="desktop-sticky">
+                {/* Left side: Sticky Text */}
+                <div style={{
+                    width: '45%',
+                    position: 'sticky',
+                    top: 0,
+                    height: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    padding: '0 4rem 0 2.5rem',
+                    marginLeft: 'max(0px, calc((100vw - 1400px) / 2))',
+                }}>
+                    <div key={activeIndex} style={{ animation: 'fadeUp 0.6s ease forwards' }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "2rem" }}>
+                            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: "rgba(196,184,168,0.5)" }}>({activeProject.index})</span>
+                            <div style={{ height: "1px", width: "3rem", backgroundColor: "rgba(196,184,168,0.3)" }} />
+                            <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(196,184,168,0.5)" }}>{activeProject.subtitle}</span>
+                        </div>
+
+                        <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(3rem, 5vw, 4.5rem)", fontWeight: 400, lineHeight: 1, color: "#F8F5F0", marginBottom: "1.5rem", letterSpacing: "-0.02em", textTransform: "uppercase" }}>
+                            {activeProject.title}
+                        </h3>
+
+                        <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: "0.95rem", lineHeight: 1.8, color: "rgba(248,245,240,0.55)", fontWeight: 300, maxWidth: "480px", marginBottom: "2.5rem" }}>
+                            {activeProject.description}
+                        </p>
+                        
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "3.5rem" }}>
+                            {activeProject.techStack.map((t, i) => (
+                                <span key={i} style={{ fontFamily: "'Manrope', sans-serif", fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600, color: "rgba(196,184,168,0.6)", border: "1px solid rgba(196,184,168,0.2)", borderRadius: "9999px", padding: "0.4rem 1rem" }}>{t}</span>
+                            ))}
+                        </div>
+
+                        <div style={{ display: "flex", gap: "1rem" }}>
+                            <a href={activeProject.link} target="_blank" rel="noopener noreferrer" className="btn-pill-light" style={{ fontSize: "0.65rem", padding: "0.75rem 2rem" }}>
+                                Live Demo <ExternalLink size={14} />
+                            </a>
+                            {activeProject.github !== "#" && (
+                                <a href={activeProject.github} target="_blank" rel="noopener noreferrer" className="btn-pill-outline-light" style={{ fontSize: "0.65rem", padding: "0.75rem 2rem" }}>
+                                    Source Code <Github size={14} />
+                                </a>
+                            )}
+                        </div>
+                    </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {projects.map((project, index) => (
-                        <div
-                            key={index}
-                            className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col h-full relative"
+                {/* Right side: Scrolling Images */}
+                <div style={{ width: '55%', paddingRight: 'max(0px, calc((100vw - 1400px) / 2))' }}>
+                    {projects.map((project, i) => (
+                        <div 
+                            key={i} 
+                            ref={el => imageRefs.current[i] = el}
+                            style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4rem 2.5rem 4rem 0' }}
+                            className="proj-dual-container"
                         >
-                            <div className="relative h-56 overflow-hidden">
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-
-                                {/* Overlay on hover */}
-                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 backdrop-blur-sm">
-                                    <a
-                                        href={project.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="bg-white text-gray-900 p-3 rounded-full hover:bg-blue-600 hover:text-white transition-transform duration-300 transform scale-0 group-hover:scale-100 delay-100 shadow-xl"
-                                        title="View Live"
-                                    >
-                                        <ExternalLink size={24} />
-                                    </a>
-                                    <a
-                                        href={project.github}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="bg-white text-gray-900 p-3 rounded-full hover:bg-gray-800 hover:text-white transition-transform duration-300 transform scale-0 group-hover:scale-100 delay-200 shadow-xl"
-                                        title="View Code"
-                                    >
-                                        <Github size={24} />
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div className="p-8 flex flex-col flex-grow">
-                                <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
-                                    {project.title}
-                                </h3>
-                                <p className="text-gray-600 mb-6 flex-grow text-base leading-relaxed font-light">
-                                    {project.description}
-                                </p>
-
-                                <div className="flex flex-wrap gap-2 mt-auto mb-8">
-                                    {project.techStack.map((tech, idx) => (
-                                        <span
-                                            key={idx}
-                                            className="text-xs font-semibold px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full border border-blue-100"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
+                            <div style={{ width: '100%', height: 'calc(100vh - 8rem)', position: 'relative' }}>
+                                
+                                {/* Large Background Image */}
+                                <div style={{ position: 'absolute', right: 0, top: 0, width: '75%', height: '100%', overflow: 'hidden' }}>
+                                    <img 
+                                        src={project.image} 
+                                        alt={project.title} 
+                                        className="scroll-zoom-img"
+                                        style={{ 
+                                            width: '100%', height: '100%', objectFit: 'cover',
+                                            transition: 'transform 0.1s ease-out', willChange: 'transform'
+                                        }} 
+                                    />
+                                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, #0D0D0D 0%, transparent 15%)', pointerEvents: 'none' }} />
                                 </div>
 
-                                <div className="flex items-center gap-6 pt-6 border-t border-gray-100 mt-auto">
-                                    <a
-                                        href={project.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center gap-2 text-sm font-bold text-gray-700 hover:text-blue-600 transition-colors uppercase tracking-wider"
-                                    >
-                                        <ExternalLink size={16} /> Live Demo
-                                    </a>
-                                    <a
-                                        href={project.github}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center gap-2 text-sm font-bold text-gray-700 hover:text-gray-900 transition-colors uppercase tracking-wider"
-                                    >
-                                        <Github size={16} /> Source Code
+                                {/* Small Overlapping Image */}
+                                <div style={{ 
+                                    position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)',
+                                    width: '45%', aspectRatio: '4/5', overflow: 'hidden', zIndex: 2,
+                                    boxShadow: '0 20px 40px rgba(0,0,0,0.6)'
+                                }}>
+                                    <img 
+                                        src={project.secondaryImage} 
+                                        alt={`${project.title} detail`} 
+                                        className="scroll-zoom-img-small"
+                                        style={{ 
+                                            width: '100%', height: '100%', objectFit: 'cover',
+                                            transition: 'transform 0.1s ease-out', willChange: 'transform'
+                                        }} 
+                                    />
+                                </div>
+
+                                {/* Overlay button for image hover (optional) */}
+                                <div className="proj-overlay-scroll" style={{
+                                    position: "absolute", inset: 0, zIndex: 3,
+                                    display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem",
+                                    opacity: 0, transition: "opacity 0.3s ease", backgroundColor: "rgba(13,13,13,0.3)"
+                                }}>
+                                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-pill-light">
+                                        Live Demo <ExternalLink size={14} />
                                     </a>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
+            </div>
+
+            {/* Mobile Stacked Layout */}
+            <div className="mobile-stacked" style={{ display: 'none', padding: '0 2.5rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                {projects.map((project, i) => (
+                    <div key={i} style={{ paddingBottom: '5rem' }}>
+                        <div style={{ width: '100%', aspectRatio: '4/3', marginBottom: '2rem', overflow: 'hidden' }}>
+                            <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        </div>
+                        <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.5rem" }}>
+                            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1rem", color: "rgba(196,184,168,0.5)" }}>({project.index})</span>
+                            <div style={{ height: "1px", width: "2rem", backgroundColor: "rgba(196,184,168,0.3)" }} />
+                            <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: "0.6rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(196,184,168,0.5)" }}>{project.subtitle}</span>
+                        </div>
+                        <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 400, lineHeight: 1, color: "#F8F5F0", marginBottom: "1rem", letterSpacing: "-0.02em", textTransform: "uppercase" }}>
+                            {project.title}
+                        </h3>
+                        <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: "0.9rem", lineHeight: 1.8, color: "rgba(248,245,240,0.55)", fontWeight: 300, marginBottom: "1.5rem" }}>
+                            {project.description}
+                        </p>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "2rem" }}>
+                            {project.techStack.map((t, idx) => (
+                                <span key={idx} style={{ fontFamily: "'Manrope', sans-serif", fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600, color: "rgba(196,184,168,0.6)", border: "1px solid rgba(196,184,168,0.2)", borderRadius: "9999px", padding: "0.3rem 0.8rem" }}>{t}</span>
+                            ))}
+                        </div>
+                        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                            <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-pill-light" style={{ fontSize: "0.6rem", padding: "0.65rem 1.5rem" }}>Live Demo <ExternalLink size={12} /></a>
+                            {project.github !== "#" && (
+                                <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-pill-outline-light" style={{ fontSize: "0.6rem", padding: "0.65rem 1.5rem" }}>Source Code <Github size={12} /></a>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <style>{`
+                @media (max-width: 900px) {
+                    .desktop-sticky { display: none !important; }
+                    .mobile-stacked { display: block !important; }
+                }
+                .scrolling-img-panel > div:hover .proj-overlay-scroll { opacity: 1 !important; }
+            `}</style>
+        </>
+    );
+}
+
+
+
+/* ─── Main Section ─── */
+export default function Projects() {
+    const headerRef = useRef(null);
+    const gridHeaderRef = useRef(null);
+
+    useEffect(() => {
+        const targets = [headerRef.current, gridHeaderRef.current].filter(Boolean);
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            },
+            { threshold: 0.15 }
+        );
+        targets.forEach(t => observer.observe(t));
+        return () => targets.forEach(t => observer.unobserve(t));
+    }, []);
+
+    return (
+        <section id="projects" style={{ backgroundColor: "#0D0D0D" }}>
+
+            {/* ── Section Header ── */}
+            <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "8rem 2.5rem 4rem" }}>
+                <div
+                    ref={headerRef}
+                    style={{
+                        display: "flex", justifyContent: "space-between", alignItems: "flex-end",
+                        borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "1.5rem",
+                        opacity: 0, transform: "translateY(24px)", transition: "opacity 0.8s ease, transform 0.8s ease",
+                        flexWrap: "wrap", gap: "1rem",
+                    }}
+                >
+                    <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                        <span className="label-tag-light">( 03 )</span>
+                        <span className="label-tag-light">Projects</span>
+                    </div>
+                    <h2 style={{
+                        fontFamily: "'Cormorant Garamond', serif",
+                        fontSize: "clamp(2rem, 4vw, 3.5rem)",
+                        fontWeight: 400, color: "#F8F5F0", margin: 0,
+                        letterSpacing: "-0.02em", fontStyle: "italic",
+                    }}>
+                        Featured Projects
+                    </h2>
+                </div>
+            </div>
+
+            {/* ── Top 3 Featured Scroll Panels ── */}
+            <div>
+                <StickyProjects projects={featuredProjects} />
+            </div>
+
+            {/* ── View All Projects Button ── */}
+            <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "5rem 2.5rem 8rem", display: 'flex', justifyContent: 'center' }}>
+                <Link 
+                    to="/projects"
+                    className="btn-pill-outline-light"
+                    style={{ fontSize: "0.8rem", padding: "1rem 3rem" }}
+                >
+                    View All Projects <ArrowRight size={16} style={{ marginLeft: "0.5rem" }} />
+                </Link>
             </div>
         </section>
     );

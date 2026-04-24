@@ -1,73 +1,209 @@
 import React from "react";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import profileImg from "../assets/profile.jpg";
 
 export default function Hero() {
     return (
-        <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-gradient-to-br from-gray-50 to-blue-50">
-            <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center z-10">
+        <section
+            id="home"
+            style={{
+                minHeight: '100vh',
+                backgroundColor: '#0D0D0D', // Deep charcoal
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                position: 'relative',
+                overflow: 'hidden',
+                paddingTop: '4rem', // Offset for navbar
+            }}
+        >
+            {/* Subtle Forest Green Glow */}
+            <div style={{
+                position: 'absolute',
+                top: '-20%',
+                right: '-10%',
+                width: '60vw',
+                height: '60vw',
+                background: 'radial-gradient(circle, rgba(26,46,42,0.5) 0%, transparent 60%)',
+                pointerEvents: 'none',
+                zIndex: 0,
+            }} />
+            
+            <div style={{
+                position: 'absolute',
+                bottom: '-20%',
+                left: '-10%',
+                width: '50vw',
+                height: '50vw',
+                background: 'radial-gradient(circle, rgba(196,184,168,0.05) 0%, transparent 60%)',
+                pointerEvents: 'none',
+                zIndex: 0,
+            }} />
 
-                {/* Left Content */}
-                <div className="space-y-6 text-center md:text-left z-20 animate-fade-in-up">
-                    <p className="text-blue-600 font-semibold tracking-wide uppercase text-sm md:text-base">
-                        Hello, I am
-                    </p>
-                    <h1 className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight tracking-tight">
-                        Swarna Rajasekhar
-                    </h1>
-                    <h2 className="text-2xl md:text-3xl text-gray-600 font-medium">
-                        Full Stack Developer <span className="text-blue-600 px-2">|</span> MERN Stack
-                    </h2>
-                    <p className="text-lg text-gray-600 max-w-lg mx-auto md:mx-0 leading-relaxed font-light">
-                        I build scalable, clean, and user-centric web applications. Passionate about creating seamless digital experiences with modern technologies.
-                    </p>
-
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-6">
-                        <a
-                            href="#projects"
-                            className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-xl transform hover:-translate-y-1 focus:ring-4 focus:ring-blue-300"
-                        >
-                            View Projects
-                            <ArrowRight size={20} />
-                        </a>
-                        <a
-                            href="/resume.pdf"
-                            download
-                            className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-white text-gray-800 border border-gray-200 rounded-lg font-semibold hover:bg-gray-50 hover:border-gray-300 transition shadow-sm hover:shadow-md focus:ring-4 focus:ring-gray-100"
-                        >
-                            Download Resume
-                            <Download size={20} />
-                        </a>
-                    </div>
+            <div style={{
+                maxWidth: '1400px',
+                width: '100%',
+                margin: '0 auto',
+                padding: '0 2.5rem',
+                position: 'relative',
+                zIndex: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+            }}>
+                
+                {/* Profile Avatar */}
+                <div style={{
+                    width: '110px',
+                    height: '110px',
+                    borderRadius: '50%',
+                    overflow: 'hidden',
+                    marginBottom: '2.5rem',
+                    border: '1px solid rgba(255,255,255,0.15)',
+                    padding: '5px',
+                }} className="hero-avatar">
+                    <img 
+                        src={profileImg} 
+                        alt="Swarna Rajasekhar" 
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            borderRadius: '50%',
+                            filter: 'grayscale(15%) contrast(105%)',
+                        }}
+                    />
                 </div>
 
-                {/* Right Content - Abstract Shape / Illustration */}
-                <div className="relative flex justify-center md:justify-end animate-fade-in-left">
-                    <div className="relative w-80 h-80 md:w-[28rem] md:h-[28rem] group">
-                        {/* Abstract Background Blotches with Tailwind Animations */}
-                        <div className="absolute top-0 -left-4 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob"></div>
-                        <div className="absolute top-0 -right-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-2000"></div>
-                        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-4000"></div>
-
-                        {/* Profile Image Container */}
-                        <div className="relative w-full h-full bg-white rounded-2xl shadow-2xl overflow-hidden border-8 border-white transform rotate-3 transition-transform duration-500 hover:rotate-0 hover:scale-[1.02]">
-                            <img
-                                src={profileImg}
-                                alt="Swarna Rajasekhar"
-                                className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                            />
-                        </div>
-
-                    </div>
+                {/* Subtitle */}
+                <div 
+                    className="hero-fade-up" 
+                    style={{ 
+                        display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem',
+                        animationDelay: '0.1s' 
+                    }}
+                >
+                    <div style={{ width: '3rem', height: '1px', backgroundColor: 'rgba(196,184,168,0.3)' }} />
+                    <span style={{
+                        fontFamily: "'Manrope', sans-serif",
+                        fontSize: '0.75rem',
+                        letterSpacing: '0.25em',
+                        textTransform: 'uppercase',
+                        color: 'rgba(196,184,168,0.9)',
+                        fontWeight: 600
+                    }}>
+                        Full Stack & SaaS Developer
+                    </span>
+                    <div style={{ width: '3rem', height: '1px', backgroundColor: 'rgba(196,184,168,0.3)' }} />
                 </div>
 
+                {/* Main Headline */}
+                <h1 
+                    className="hero-fade-up" 
+                    style={{
+                        fontFamily: "'Cormorant Garamond', serif",
+                        fontSize: 'clamp(4rem, 11vw, 9rem)',
+                        fontWeight: 400,
+                        lineHeight: 0.9,
+                        color: '#F8F5F0',
+                        margin: '0 0 2rem 0',
+                        letterSpacing: '-0.02em',
+                        textTransform: 'uppercase',
+                        animationDelay: '0.2s'
+                    }}
+                >
+                    Swarna<br />
+                    <i style={{ color: '#C4B8A8', fontWeight: 300, textTransform: 'lowercase' }}>rajasekhar</i>
+                </h1>
+
+                {/* Description */}
+                <p 
+                    className="hero-fade-up" 
+                    style={{
+                        fontFamily: "'Manrope', sans-serif",
+                        fontSize: '1.1rem',
+                        lineHeight: 1.8,
+                        color: 'rgba(248,245,240,0.6)',
+                        fontWeight: 300,
+                        maxWidth: '540px',
+                        margin: '0 auto 3.5rem auto',
+                        animationDelay: '0.3s'
+                    }}
+                >
+                    I engineer scalable, user-centric web applications. Blending robust MERN stack architecture with premium digital aesthetics.
+                </p>
+
+                {/* CTAs */}
+                <div 
+                    className="hero-fade-up" 
+                    style={{
+                        display: 'flex',
+                        gap: '1.5rem',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        animationDelay: '0.4s'
+                    }}
+                >
+                    <a href="#projects" className="btn-pill-light" style={{ padding: '1rem 3rem', fontSize: '0.8rem' }}>
+                        View Projects <ArrowRight size={16} style={{ marginLeft: '0.5rem' }} />
+                    </a>
+                    <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn-pill-outline-light" style={{ padding: '1rem 3rem', fontSize: '0.8rem' }}>
+                        View Resume <ExternalLink size={16} style={{ marginLeft: '0.5rem' }} />
+                    </a>
+                </div>
             </div>
 
-            {/* Background decoration */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-                <div className="absolute top-[10%] left-[5%] w-24 h-24 bg-blue-100 rounded-full opacity-20 blur-2xl"></div>
-                <div className="absolute bottom-[20%] right-[10%] w-32 h-32 bg-purple-100 rounded-full opacity-20 blur-2xl"></div>
+            {/* Bottom Scroll Indicator */}
+            <div style={{
+                position: 'absolute',
+                bottom: '2.5rem',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '1rem',
+                opacity: 0.5,
+                zIndex: 2,
+            }}>
+                <span style={{
+                    fontFamily: "'Manrope', sans-serif",
+                    fontSize: '0.55rem',
+                    letterSpacing: '0.2em',
+                    textTransform: 'uppercase',
+                    color: '#F8F5F0',
+                }}>Scroll to explore</span>
+                <div style={{ width: '1px', height: '40px', backgroundColor: '#F8F5F0', opacity: 0.4 }} className="scroll-line-anim" />
             </div>
+
+            <style>{`
+                @keyframes lineDrop {
+                    0% { transform: scaleY(0); transform-origin: top; }
+                    50% { transform: scaleY(1); transform-origin: top; }
+                    50.1% { transform: scaleY(1); transform-origin: bottom; }
+                    100% { transform: scaleY(0); transform-origin: bottom; }
+                }
+                .scroll-line-anim {
+                    animation: lineDrop 2s infinite ease-in-out;
+                }
+                
+                @keyframes heroFadeUp {
+                    from { opacity: 0; transform: translateY(30px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                
+                .hero-fade-up {
+                    opacity: 0;
+                    animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                }
+                
+                .hero-avatar {
+                    opacity: 0;
+                    animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                }
+            `}</style>
         </section>
     );
 }

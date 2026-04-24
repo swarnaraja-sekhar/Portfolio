@@ -2,39 +2,50 @@ import React, { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
 
 export default function ScrollToTop() {
-    const [isVisible, setIsVisible] = useState(false);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        const toggleVisibility = () => {
-            if (window.scrollY > 300) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
-            }
-        };
-
-        window.addEventListener("scroll", toggleVisibility);
-        return () => window.removeEventListener("scroll", toggleVisibility);
+        const toggle = () => setVisible(window.scrollY > 500);
+        window.addEventListener("scroll", toggle);
+        return () => window.removeEventListener("scroll", toggle);
     }, []);
 
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-    };
+    const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-    return (
-        <div className="fixed bottom-8 right-8 z-50">
-            {isVisible && (
-                <button
-                    onClick={scrollToTop}
-                    className="p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-blue-300 animate-bounce cursor-pointer"
-                    aria-label="Scroll to top"
-                >
-                    <ArrowUp size={24} />
-                </button>
-            )}
-        </div>
-    );
+    return visible ? (
+        <button
+            onClick={scrollTop}
+            style={{
+                position: 'fixed',
+                bottom: '2.5rem',
+                right: '2.5rem',
+                zIndex: 99,
+                width: '2.75rem',
+                height: '2.75rem',
+                borderRadius: '50%',
+                border: '1px solid rgba(13,13,13,0.15)',
+                backgroundColor: '#F8F5F0',
+                color: '#0D0D0D',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
+                transition: 'all 0.3s ease',
+            }}
+            aria-label="Scroll to top"
+            onMouseEnter={e => {
+                e.currentTarget.style.backgroundColor = '#0D0D0D';
+                e.currentTarget.style.color = '#F8F5F0';
+                e.currentTarget.style.transform = 'translateY(-3px)';
+            }}
+            onMouseLeave={e => {
+                e.currentTarget.style.backgroundColor = '#F8F5F0';
+                e.currentTarget.style.color = '#0D0D0D';
+                e.currentTarget.style.transform = 'translateY(0)';
+            }}
+        >
+            <ArrowUp size={16} />
+        </button>
+    ) : null;
 }

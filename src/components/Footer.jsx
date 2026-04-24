@@ -1,43 +1,157 @@
 import React from "react";
-import { Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 export default function Footer() {
+    const navLinks = [
+        { name: "About", href: "#about" },
+        { name: "Skills", href: "#skills" },
+        { name: "Projects", href: "#projects" },
+        { name: "Experience", href: "#experience" },
+        { name: "Contact", href: "#contact" },
+    ];
+
     const socialLinks = [
-        { icon: <Github size={20} />, href: "https://github.com/swarnaraja-sekhar", label: "GitHub" },
-        { icon: <Linkedin size={20} />, href: "https://linkedin.com/in/swarna-rajasekhar", label: "LinkedIn" },
-        { icon: <Twitter size={20} />, href: "https://twitter.com", label: "Twitter" },
-        { icon: <Mail size={20} />, href: "bhuchiki12@gmail.com", label: "Email" },
+        { icon: <Github size={16} />, href: "https://github.com/swarnaraja-sekhar", label: "GitHub" },
+        { icon: <Linkedin size={16} />, href: "https://linkedin.com/in/swarna-rajasekhar", label: "LinkedIn" },
+        { icon: <Mail size={16} />, href: "mailto:bhuchiki12@gmail.com", label: "Email" },
     ];
 
     return (
-        <footer className="bg-gray-900 text-gray-400 py-16 border-t border-gray-800 relative z-10">
-            <div className="container mx-auto px-6 flex flex-col items-center">
+        <footer style={{ backgroundColor: '#0D0D0D', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '4rem 0 3rem' }}>
+            <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2.5rem' }}>
 
-                <div className="flex gap-8 mb-8">
-                    {socialLinks.map((link, index) => (
-                        <a
-                            key={index}
-                            href={link.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-4 bg-gray-800 rounded-full hover:bg-blue-600 hover:text-white transition-all transform hover:-translate-y-2 hover:shadow-lg hover:shadow-blue-500/20 active:scale-95 focus:outline-none focus:ring-4 focus:ring-blue-500/30"
-                            aria-label={link.label}
-                        >
-                            <div className="transition-transform transform hover:rotate-12 duration-300">
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr auto 1fr',
+                    alignItems: 'center',
+                    gap: '3rem',
+                    paddingBottom: '3rem',
+                    borderBottom: '1px solid rgba(255,255,255,0.06)',
+                    flexWrap: 'wrap',
+                }} className="footer-main">
+
+                    {/* Brand */}
+                    <div>
+                        <p style={{
+                            fontFamily: "'Cormorant Garamond', serif",
+                            fontSize: '1.8rem',
+                            fontWeight: 500,
+                            color: '#F8F5F0',
+                            margin: '0 0 0.25rem',
+                            letterSpacing: '-0.01em',
+                        }}>Swarna Rajasekhar</p>
+                        <p style={{
+                            fontFamily: "'Manrope', sans-serif",
+                            fontSize: '0.62rem',
+                            letterSpacing: '0.18em',
+                            textTransform: 'uppercase',
+                            fontWeight: 500,
+                            color: 'rgba(248,245,240,0.35)',
+                            margin: 0,
+                        }}>Full Stack Developer</p>
+                    </div>
+
+                    {/* Nav links — center */}
+                    <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                        {navLinks.map((link) => (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                style={{
+                                    fontFamily: "'Manrope', sans-serif",
+                                    fontSize: '0.65rem',
+                                    letterSpacing: '0.12em',
+                                    textTransform: 'uppercase',
+                                    fontWeight: 500,
+                                    color: 'rgba(248,245,240,0.45)',
+                                    textDecoration: 'none',
+                                    transition: 'color 0.25s ease',
+                                }}
+                                onMouseEnter={e => e.target.style.color = 'rgba(248,245,240,0.9)'}
+                                onMouseLeave={e => e.target.style.color = 'rgba(248,245,240,0.45)'}
+                            >
+                                {link.name}
+                            </a>
+                        ))}
+                    </div>
+
+                    {/* Social links — right */}
+                    <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
+                        {socialLinks.map((link, i) => (
+                            <a
+                                key={i}
+                                href={link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={link.label}
+                                style={{
+                                    width: '2.25rem',
+                                    height: '2.25rem',
+                                    borderRadius: '50%',
+                                    border: '1px solid rgba(255,255,255,0.12)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: 'rgba(248,245,240,0.5)',
+                                    textDecoration: 'none',
+                                    transition: 'all 0.25s ease',
+                                }}
+                                onMouseEnter={e => {
+                                    e.currentTarget.style.borderColor = '#C4B8A8';
+                                    e.currentTarget.style.color = '#C4B8A8';
+                                    e.currentTarget.style.transform = 'translateY(-2px)';
+                                }}
+                                onMouseLeave={e => {
+                                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
+                                    e.currentTarget.style.color = 'rgba(248,245,240,0.5)';
+                                    e.currentTarget.style.transform = 'translateY(0)';
+                                }}
+                            >
                                 {link.icon}
-                            </div>
-                        </a>
-                    ))}
+                            </a>
+                        ))}
+                    </div>
                 </div>
 
-                <div className="text-center space-y-2">
-                    <p className="text-2xl font-bold text-white tracking-wide">Swarna Rajasekhar</p>
-                    <p className="text-sm font-medium text-gray-500">
-                        &copy; {new Date().getFullYear()} All rights reserved.
+                {/* Bottom bar */}
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    paddingTop: '2rem',
+                    flexWrap: 'wrap',
+                    gap: '1rem',
+                }}>
+                    <p style={{
+                        fontFamily: "'Manrope', sans-serif",
+                        fontSize: '0.65rem',
+                        color: 'rgba(248,245,240,0.25)',
+                        margin: 0,
+                        letterSpacing: '0.05em',
+                    }}>
+                        © {new Date().getFullYear()} Swarna Rajasekhar. All rights reserved.
+                    </p>
+                    <p style={{
+                        fontFamily: "'Manrope', sans-serif",
+                        fontSize: '0.65rem',
+                        color: 'rgba(248,245,240,0.25)',
+                        margin: 0,
+                        letterSpacing: '0.05em',
+                    }}>
+                        Built with React · MERN Stack
                     </p>
                 </div>
-
             </div>
+
+            <style>{`
+                @media (max-width: 768px) {
+                    .footer-main {
+                        grid-template-columns: 1fr !important;
+                        text-align: center !important;
+                    }
+                    .footer-main > div:last-child { justify-content: center !important; }
+                }
+            `}</style>
         </footer>
     );
 }

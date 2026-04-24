@@ -1,12 +1,20 @@
-import React, { useState } from "react";
-import { Mail, Linkedin, Github, Send } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Mail, Linkedin, Github, Send, Phone } from "lucide-react";
 
 export default function Contact() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        message: "",
-    });
+    const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+    const [sent, setSent] = useState(false);
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => entries.forEach(e => e.target.classList.toggle('visible', e.isIntersecting)),
+            { threshold: 0.1 }
+        );
+        const reveals = sectionRef.current?.querySelectorAll('.reveal') ?? [];
+        reveals.forEach(el => observer.observe(el));
+        return () => reveals.forEach(el => observer.unobserve(el));
+    }, []);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,73 +22,206 @@ export default function Contact() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Form submitted (demo only):", formData);
-        alert("This is a demo. No backend connected yet!");
+
+        // Construct WhatsApp message
+        const whatsappNumber = "919391774388";
+        const text = `*New Portfolio Message*%0A%0A*Name:* ${formData.name}%0A*Email:* ${formData.email}%0A*Message:* ${formData.message}`;
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${text}`;
+
+        // Open WhatsApp in a new tab
+        window.open(whatsappUrl, "_blank");
+
+        setSent(true);
+        setTimeout(() => setSent(false), 4000);
         setFormData({ name: "", email: "", message: "" });
     };
 
+    const contactItems = [
+        {
+            icon: <Mail size={18} />,
+            label: "Email",
+            value: "bhuchiki12@gmail.com",
+            href: "mailto:bhuchiki12@gmail.com",
+        },
+        {
+            icon: <Linkedin size={18} />,
+            label: "LinkedIn",
+            value: "swarna-rajasekhar",
+            href: "https://linkedin.com/in/swarna-rajasekhar",
+        },
+        {
+            icon: <Phone size={18} />,
+            label: "Phone",
+            value: "+91 9391774388",
+            href: "tel:+919391774388",
+        },
+        {
+            icon: <Github size={18} />,
+            label: "GitHub",
+            value: "swarnaraja-sekhar",
+            href: "https://github.com/swarnaraja-sekhar",
+        },
+    ];
+
+    const inputStyle = {
+        width: '100%',
+        padding: '1rem 0',
+        background: 'transparent',
+        border: 'none',
+        borderBottom: '1px solid rgba(255,255,255,0.15)',
+        color: '#F8F5F0',
+        fontFamily: "'Manrope', sans-serif",
+        fontSize: '0.9rem',
+        fontWeight: 300,
+        outline: 'none',
+        transition: 'border-color 0.3s ease',
+        boxSizing: 'border-box',
+    };
+
+    const labelStyle = {
+        fontFamily: "'Manrope', sans-serif",
+        fontSize: '0.6rem',
+        letterSpacing: '0.15em',
+        textTransform: 'uppercase',
+        fontWeight: 600,
+        color: 'rgba(248,245,240,0.4)',
+        display: 'block',
+        marginBottom: '0.25rem',
+    };
+
     return (
-        <section id="contact" className="py-24 bg-white">
-            <div className="container mx-auto px-6 max-w-5xl">
-                <div className="text-center mb-16 space-y-4">
-                    <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4 inline-block relative after:w-full after:h-1 after:bg-blue-600 after:absolute after:bottom-0 after:left-0 after:scale-x-50 after:origin-center hover:after:scale-x-100 transition-transform pb-2">
+        <section id="contact" ref={sectionRef} style={{ backgroundColor: '#1A2E2A', padding: '8rem 0' }}>
+            <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 2.5rem' }}>
+
+                {/* Header */}
+                <div className="reveal" style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-end',
+                    borderBottom: '1px solid rgba(255,255,255,0.1)',
+                    paddingBottom: '1.5rem',
+                    marginBottom: '5rem',
+                    flexWrap: 'wrap',
+                    gap: '1rem',
+                }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                        <span className="label-tag-light">( 05 )</span>
+                        <span className="label-tag-light">Contact</span>
+                    </div>
+                    <h2 style={{
+                        fontFamily: "'Cormorant Garamond', serif",
+                        fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                        fontWeight: 400,
+                        color: '#F8F5F0',
+                        margin: 0,
+                        letterSpacing: '-0.02em',
+                        fontStyle: 'italic',
+                    }}>
                         Get In Touch
                     </h2>
-                    <p className="text-lg text-gray-600 mt-4 max-w-xl mx-auto font-light leading-relaxed">
-                        Currently open to new opportunities. Let's connect!
-                    </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-stretch">
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: '8rem',
+                    alignItems: 'flex-start',
+                }} className="contact-grid">
 
-                    {/* Left Column: Contact Links */}
-                    <div className="flex flex-col space-y-8 h-full bg-gray-50/50 p-8 rounded-3xl shadow-inner border border-gray-100/50">
+                    {/* Left: CTA + contacts */}
+                    <div className="reveal">
+                        <h3 style={{
+                            fontFamily: "'Cormorant Garamond', serif",
+                            fontSize: 'clamp(2rem, 3.5vw, 3rem)',
+                            fontWeight: 400,
+                            lineHeight: 1.2,
+                            color: '#F8F5F0',
+                            margin: '0 0 1.5rem',
+                            letterSpacing: '-0.01em',
+                        }}>
+                            Currently open to new opportunities.
+                            <span style={{ fontStyle: 'italic', fontWeight: 300 }}> Let's connect.</span>
+                        </h3>
+                        <p style={{
+                            fontFamily: "'Manrope', sans-serif",
+                            fontSize: '0.9rem',
+                            lineHeight: 1.8,
+                            color: 'rgba(248,245,240,0.5)',
+                            fontWeight: 300,
+                            margin: '0 0 3rem',
+                        }}>
+                            Whether you have a project in mind, a question, or just want to say hello — I'd love to hear from you.
+                        </p>
 
-                        <div className="contact-card group flex items-center gap-6 p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-100">
-                            <div className="p-4 bg-blue-50 text-blue-600 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">
-                                <Mail size={28} />
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">Email</h3>
-                                <a href="mailto:bhuchiki12@gmail.com" className="text-gray-600 hover:text-blue-600 transition font-medium">
-                                    bhuchiki12@gmail.com
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                            {contactItems.map((item, i) => (
+                                <a
+                                    key={i}
+                                    href={item.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '1.25rem',
+                                        padding: '1.25rem 1.5rem',
+                                        border: '1px solid rgba(255,255,255,0.1)',
+                                        borderRadius: '2px',
+                                        textDecoration: 'none',
+                                        transition: 'all 0.3s ease',
+                                        backgroundColor: 'transparent',
+                                    }}
+                                    onMouseEnter={e => {
+                                        e.currentTarget.style.borderColor = 'rgba(196,184,168,0.4)';
+                                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)';
+                                    }}
+                                    onMouseLeave={e => {
+                                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                                        e.currentTarget.style.backgroundColor = 'transparent';
+                                    }}
+                                >
+                                    <span style={{ color: '#C4B8A8', display: 'flex' }}>{item.icon}</span>
+                                    <div>
+                                        <p style={{
+                                            fontFamily: "'Manrope', sans-serif",
+                                            fontSize: '0.6rem',
+                                            letterSpacing: '0.15em',
+                                            textTransform: 'uppercase',
+                                            fontWeight: 600,
+                                            color: 'rgba(248,245,240,0.35)',
+                                            margin: '0 0 0.2rem',
+                                        }}>{item.label}</p>
+                                        <p style={{
+                                            fontFamily: "'Manrope', sans-serif",
+                                            fontSize: '0.85rem',
+                                            fontWeight: 400,
+                                            color: 'rgba(248,245,240,0.8)',
+                                            margin: 0,
+                                        }}>{item.value}</p>
+                                    </div>
                                 </a>
-                            </div>
-                        </div>
-
-                        <div className="contact-card group flex items-center gap-6 p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-100">
-                            <div className="p-4 bg-blue-50 text-blue-600 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">
-                                <Linkedin size={28} />
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">LinkedIn</h3>
-                                <a href="https://linkedin.com/in/swarna-rajasekhar" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600 transition font-medium">
-                                    linkedin.com/in/swarna-rajasekhar
-                                </a>
-                            </div>
-                        </div>
-
-                        <div className="contact-card group flex items-center gap-6 p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-100">
-                            <div className="p-4 bg-blue-50 text-blue-600 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">
-                                <Github size={28} />
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">GitHub</h3>
-                                <a href="https://github.com/swarnaraja-sekhar" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600 transition font-medium">
-                                    github.com/swarnaraja-sekhar
-                                </a>
-                            </div>
+                            ))}
                         </div>
                     </div>
 
-                    {/* Right Column: Contact Form */}
-                    <form onSubmit={handleSubmit} className="flex flex-col space-y-6 bg-white p-10 rounded-3xl shadow-xl border border-gray-100 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full blur-3xl opacity-20 transform translate-x-10 -translate-y-10 pointer-events-none group-hover:scale-150 transition-transform duration-700"></div>
+                    {/* Right: Form */}
+                    <form onSubmit={handleSubmit} className="reveal" style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '2.5rem',
+                    }}>
+                        <p style={{
+                            fontFamily: "'Manrope', sans-serif",
+                            fontSize: '0.7rem',
+                            letterSpacing: '0.15em',
+                            textTransform: 'uppercase',
+                            fontWeight: 600,
+                            color: 'rgba(248,245,240,0.35)',
+                            margin: 0,
+                        }}>— Send a Message</p>
 
-                        <h3 className="text-2xl font-bold text-gray-900 mb-2 relative z-10">Send a Message</h3>
-
-                        <div className="relative z-10 space-y-2 group/input">
-                            <label htmlFor="name" className="block text-sm font-bold text-gray-700 uppercase tracking-wide">Name</label>
+                        <div>
+                            <label htmlFor="name" style={labelStyle}>Your Name</label>
                             <input
                                 type="text"
                                 id="name"
@@ -88,13 +229,15 @@ export default function Contact() {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-5 py-3 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white"
                                 placeholder="John Doe"
+                                style={inputStyle}
+                                onFocus={e => e.target.style.borderBottomColor = '#C4B8A8'}
+                                onBlur={e => e.target.style.borderBottomColor = 'rgba(255,255,255,0.15)'}
                             />
                         </div>
 
-                        <div className="relative z-10 space-y-2 group/input">
-                            <label htmlFor="email" className="block text-sm font-bold text-gray-700 uppercase tracking-wide">Email</label>
+                        <div>
+                            <label htmlFor="email" style={labelStyle}>Email Address</label>
                             <input
                                 type="email"
                                 id="email"
@@ -102,13 +245,15 @@ export default function Contact() {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-5 py-3 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white"
                                 placeholder="john@example.com"
+                                style={inputStyle}
+                                onFocus={e => e.target.style.borderBottomColor = '#C4B8A8'}
+                                onBlur={e => e.target.style.borderBottomColor = 'rgba(255,255,255,0.15)'}
                             />
                         </div>
 
-                        <div className="relative z-10 space-y-2 group/input">
-                            <label htmlFor="message" className="block text-sm font-bold text-gray-700 uppercase tracking-wide">Message</label>
+                        <div>
+                            <label htmlFor="message" style={labelStyle}>Message</label>
                             <textarea
                                 id="message"
                                 name="message"
@@ -116,22 +261,34 @@ export default function Contact() {
                                 onChange={handleChange}
                                 required
                                 rows="4"
-                                className="w-full px-5 py-3 border border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all resize-none bg-gray-50 focus:bg-white"
                                 placeholder="I'd like to discuss a project..."
-                            ></textarea>
+                                style={{ ...inputStyle, resize: 'none', lineHeight: 1.8 }}
+                                onFocus={e => e.target.style.borderBottomColor = '#C4B8A8'}
+                                onBlur={e => e.target.style.borderBottomColor = 'rgba(255,255,255,0.15)'}
+                            />
                         </div>
 
-                        <button
-                            type="submit"
-                            className="relative z-10 w-full flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 active:scale-95 focus:ring-4 focus:ring-blue-300 uppercase tracking-wide"
-                        >
-                            Send Message
-                            <Send size={20} className="animate-pulse" />
-                        </button>
+                        <div>
+                            <button
+                                type="submit"
+                                className="btn-pill-light"
+                                style={{ alignSelf: 'flex-start' }}
+                            >
+                                {sent ? "Message Sent ✓" : <>Send Message <Send size={14} /></>}
+                            </button>
+                        </div>
                     </form>
-
                 </div>
             </div>
+
+            <style>{`
+                @media (max-width: 768px) {
+                    .contact-grid {
+                        grid-template-columns: 1fr !important;
+                        gap: 4rem !important;
+                    }
+                }
+            `}</style>
         </section>
     );
 }
