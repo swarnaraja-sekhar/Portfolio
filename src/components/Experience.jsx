@@ -82,7 +82,7 @@ export default function Experience() {
                     {experiences.map((exp, i) => (
                         <div
                             key={i}
-                            className="reveal"
+                            className="reveal experience-row"
                             style={{
                                 display: 'grid',
                                 gridTemplateColumns: '200px 1fr auto',
@@ -92,10 +92,9 @@ export default function Experience() {
                                 padding: '2.5rem 0',
                                 transition: 'background 0.3s ease',
                             }}
-                            id={`exp-row-${i}`}
                         >
                             {/* Type badge */}
-                            <div>
+                            <div className="exp-badge-container">
                                 <span style={{
                                     display: 'inline-flex',
                                     alignItems: 'center',
@@ -128,7 +127,7 @@ export default function Experience() {
                             </div>
 
                             {/* Content */}
-                            <div>
+                            <div className="exp-content">
                                 <h3 style={{
                                     fontFamily: "'Cormorant Garamond', serif",
                                     fontSize: '1.6rem',
@@ -159,7 +158,7 @@ export default function Experience() {
                             </div>
 
                             {/* Index number */}
-                            <span style={{
+                            <span className="exp-index" style={{
                                 fontFamily: "'Cormorant Garamond', serif",
                                 fontSize: '4rem',
                                 fontWeight: 300,
@@ -174,15 +173,22 @@ export default function Experience() {
             </div>
 
             <style>{`
-                @media (max-width: 768px) {
-                    #exp-row-0, #exp-row-1, #exp-row-2 {
+                @media (max-width: 900px) {
+                    .experience-row {
                         grid-template-columns: 1fr !important;
-                        gap: 1rem !important;
+                        gap: 1.5rem !important;
+                        padding: 2rem 0 !important;
                     }
-                    #exp-row-0 > span:last-child,
-                    #exp-row-1 > span:last-child,
-                    #exp-row-2 > span:last-child {
+                    .exp-index {
                         display: none !important;
+                    }
+                    .exp-badge-container {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                    .exp-badge-container p {
+                        margin: 0 !important;
                     }
                 }
             `}</style>

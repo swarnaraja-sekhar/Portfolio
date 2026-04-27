@@ -283,9 +283,15 @@ export default function Contact() {
 
             <style>{`
                 @media (max-width: 768px) {
+                    #contact {
+                        padding: 5rem 0 !important;
+                    }
                     .contact-grid {
                         grid-template-columns: 1fr !important;
                         gap: 4rem !important;
+                    }
+                    #contact > div {
+                        padding: 0 1.5rem !important;
                     }
                 }
             `}</style>

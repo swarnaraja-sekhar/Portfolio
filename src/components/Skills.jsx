@@ -161,12 +161,14 @@ export default function Skills() {
                         alignItems: 'center',
                         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
                     }}
+                    className="skills-carousel-container"
                     onMouseEnter={() => setIsAutoPlaying(false)}
                     onMouseLeave={() => setIsAutoPlaying(true)}
                 >
                     {/* Navigation Arrows */}
                     <button 
                         onClick={handlePrev}
+                        className="carousel-arrow prev"
                         style={{
                             position: 'absolute',
                             left: '2rem',
@@ -199,6 +201,7 @@ export default function Skills() {
 
                     <button 
                         onClick={handleNext}
+                        className="carousel-arrow next"
                         style={{
                             position: 'absolute',
                             right: '2rem',
@@ -246,7 +249,7 @@ export default function Skills() {
                             alignItems: 'center',
                             marginBottom: '4rem',
                             textAlign: 'center'
-                        }}>
+                        }} className="category-info">
                             <div style={{
                                 width: '64px',
                                 height: '64px',
@@ -268,7 +271,7 @@ export default function Skills() {
                                 color: '#F8F5F0',
                                 marginBottom: '0.5rem',
                                 letterSpacing: '-0.02em'
-                            }}>
+                            }} className="category-title">
                                 {activeCategory.title}
                             </h3>
                             <p style={{
@@ -289,7 +292,7 @@ export default function Skills() {
                             gap: '2.5rem',
                             maxWidth: '800px',
                             minHeight: '120px' // prevent jumping when switching categories
-                        }}>
+                        }} className="skills-grid">
                             {activeCategory.skills.map((skill, idx) => (
                                 <div 
                                     key={idx}
@@ -300,6 +303,7 @@ export default function Skills() {
                                         gap: '1rem',
                                         width: '80px',
                                     }}
+                                    className="skill-item"
                                 >
                                     <div style={{
                                         width: '60px',
@@ -315,6 +319,7 @@ export default function Skills() {
                                         position: 'relative',
                                         overflow: 'hidden'
                                     }}
+                                    className="skill-icon-box"
                                     onMouseEnter={e => {
                                         e.currentTarget.style.backgroundColor = '#222222';
                                         e.currentTarget.style.transform = 'translateY(-4px)';
@@ -358,7 +363,7 @@ export default function Skills() {
                         justifyContent: 'center',
                         gap: '1rem',
                         marginTop: '5rem'
-                    }}>
+                    }} className="category-pills">
                         {skillCategories.map((cat, index) => {
                             const isActive = index === activeIndex;
                             const CatIcon = cat.icon;
@@ -440,6 +445,41 @@ export default function Skills() {
                     100% {
                         opacity: 1;
                         transform: translateX(0) scale(1);
+                    }
+                }
+                @media (max-width: 768px) {
+                    .skills-carousel-container {
+                        padding: 3rem 1.5rem !important;
+                    }
+                    .carousel-arrow {
+                        top: auto !important;
+                        bottom: 2rem !important;
+                        transform: none !important;
+                    }
+                    .carousel-arrow.prev {
+                        left: calc(50% - 50px) !important;
+                    }
+                    .carousel-arrow.next {
+                        right: calc(50% - 50px) !important;
+                    }
+                    .category-info {
+                        margin-bottom: 2.5rem !important;
+                    }
+                    .category-title {
+                        fontSize: 1.5rem !important;
+                    }
+                    .skills-grid {
+                        gap: 1.5rem !important;
+                    }
+                    .skill-item {
+                        width: 70px !important;
+                    }
+                    .skill-icon-box {
+                        width: 50px !important;
+                        height: 50px !important;
+                    }
+                    .category-pills {
+                        margin-top: 3.5rem !important;
                     }
                 }
             `}</style>

@@ -203,6 +203,31 @@ export default function Hero() {
                     opacity: 0;
                     animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                 }
+
+                @media (max-width: 768px) {
+                    #home {
+                        padding-top: 6rem !important;
+                        padding-bottom: 4rem !important;
+                    }
+                    .hero-avatar {
+                        width: 90px !important;
+                        height: 90px !important;
+                        margin-bottom: 1.5rem !important;
+                    }
+                    .hero-fade-up h1 {
+                        font-size: clamp(3rem, 15vw, 5rem) !important;
+                    }
+                    .hero-fade-up p {
+                        font-size: 1rem !important;
+                        margin-bottom: 2.5rem !important;
+                    }
+                    .hero-fade-up .btn-pill-light, 
+                    .hero-fade-up .btn-pill-outline-light {
+                        padding: 0.8rem 2rem !important;
+                        width: 100%;
+                        max-width: 280px;
+                    }
+                }
             `}</style>
         </section>
     );

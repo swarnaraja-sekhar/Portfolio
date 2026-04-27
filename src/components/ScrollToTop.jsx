@@ -46,6 +46,14 @@ export default function ScrollToTop() {
             }}
         >
             <ArrowUp size={16} />
+            <style>{`
+                @media (max-width: 768px) {
+                    button {
+                        bottom: 1.5rem !important;
+                        right: 1.5rem !important;
+                    }
+                }
+            `}</style>
         </button>
     ) : null;
 }

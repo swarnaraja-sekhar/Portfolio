@@ -27,19 +27,19 @@ const allProjects = [
         featured: true
     },
     {
-        title: "E-Commerce Platform",
-        description: "A full-stack e-commerce solution with user authentication, product management, cart functionality, and secure payment integration built on the MERN stack.",
-        techStack: ["React", "Node.js", "MongoDB", "Express"],
-        link: "https://cognetix-ecommerce.vercel.app/",
-        image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80",
+        title: "Novacrest Developers - Startup Ecosystem",
+        description: "A dynamic startup ecosystem bridging the gap between World-Class Engineering, State-of-the-Art Education, and Elite Career Growth. Recognized by MSME Govt. of India.",
+        techStack: ["Next.js", "Tailwind CSS", "Prisma", "Node.js"],
+        link: "https://www.novacrestdevelopers.com/",
+        image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
         featured: false
     },
     {
-        title: "Smart Classroom",
-        description: "A smart classroom system automating attendance tracking and optimizing free periods through personalized AI-driven academic activity recommendations.",
-        techStack: ["React", "Node.js", "MongoDB", "Express"],
-        link: "https://smart-curriculum-activity-attendanc-rosy.vercel.app/",
-        image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80",
+        title: "Ornate - Annual Cultural Fest Website",
+        description: "A high-performance event platform for RGUKT Ongole's premier cultural festival. Designed to handle large-scale traffic, manage event registrations, and showcase student talent.",
+        techStack: ["React", "Tailwind CSS", "Node.js", "Express"],
+        link: "https://ornate.rguktong.in/",
+        image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80",
         featured: false
     },
     {
@@ -58,8 +58,8 @@ export default function AllProjects() {
     }, []);
 
     return (
-        <div style={{ backgroundColor: "#0D0D0D", minHeight: "100vh", paddingTop: "120px", paddingBottom: "80px" }}>
-            <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 2.5rem" }}>
+        <div style={{ backgroundColor: "#0D0D0D", minHeight: "100vh", paddingTop: "120px", paddingBottom: "80px" }} className="projects-page">
+            <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "0 2.5rem" }} className="projects-container">
                 
                 {/* Header */}
                 <div style={{ marginBottom: "4rem", textAlign: "center" }}>
@@ -85,11 +85,14 @@ export default function AllProjects() {
                 </div>
 
                 {/* Grid */}
-                <div style={{ 
-                    display: "grid", 
-                    gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))", 
-                    gap: "2rem" 
-                }}>
+                <div 
+                    style={{ 
+                        display: "grid", 
+                        gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", 
+                        gap: "2rem" 
+                    }}
+                    className="projects-grid"
+                >
                     {allProjects.map((project, idx) => (
                         <div 
                             key={idx}
@@ -102,6 +105,7 @@ export default function AllProjects() {
                                 flexDirection: "column",
                                 transition: "transform 0.3s ease, border-color 0.3s ease",
                             }}
+                            className="project-card"
                             onMouseEnter={e => {
                                 e.currentTarget.style.transform = "translateY(-4px)";
                                 e.currentTarget.style.borderColor = "rgba(196,184,168,0.3)";
@@ -219,6 +223,20 @@ export default function AllProjects() {
                     ))}
                 </div>
             </div>
+            <style>{`
+                @media (max-width: 768px) {
+                    .projects-page {
+                        padding-top: 100px !important;
+                        padding-bottom: 60px !important;
+                    }
+                    .projects-container {
+                        padding: 0 1.5rem !important;
+                    }
+                    .projects-grid {
+                        gap: 1.5rem !important;
+                    }
+                }
+            `}</style>
         </div>
     );
 }

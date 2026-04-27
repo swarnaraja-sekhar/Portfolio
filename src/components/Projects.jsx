@@ -48,6 +48,7 @@ const featuredProjects = [
 function StickyProjects({ projects }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const imageRefs = useRef([]);
+    const textRef = useRef(null);
 
     useEffect(() => {
         // Observer for active text
@@ -69,25 +70,55 @@ function StickyProjects({ projects }) {
             if (ref) observer.observe(ref);
         });
 
-        // Zoom effect on scroll
+        // Zoom and parallax effect on scroll
         const handleScroll = () => {
             imageRefs.current.forEach((ref) => {
                 if (ref) {
                     const rect = ref.getBoundingClientRect();
                     const windowHeight = window.innerHeight;
-                    // Calculate distance from center of viewport
-                    const centerOffset = rect.top + rect.height / 2 - windowHeight / 2;
-                    // Calculate scale: 1.0 at edges, up to 1.15 at center
-                    const progress = 1 - Math.min(1, Math.abs(centerOffset) / windowHeight);
-                    const scale = 1 + (progress * 0.15);
-                    const smallScale = 1 + (progress * 0.08);
+                    
+                    // Calculate how much the element is in view (0 to 1)
+                    // 0 = just entering from bottom or leaving at top
+                    // 1 = perfectly centered
+                    const viewCenter = rect.top + rect.height / 2;
+                    const viewportCenter = windowHeight / 2;
+                    const distanceCenter = Math.abs(viewportCenter - viewCenter);
+                    const maxDistance = windowHeight * 0.8;
+                    const progress = Math.max(0, 1 - (distanceCenter / maxDistance));
+                    
+                    // More dramatic zoom: 1.0 to 1.25
+                    const scale = 1 + (progress * 0.25);
+                    const smallScale = 1 + (progress * 0.15);
+                    
+                    // Parallax movement
+                    const translateY = (viewportCenter - viewCenter) * 0.1;
                     
                     const img = ref.querySelector('.scroll-zoom-img');
-                    if (img) img.style.transform = `scale(${scale})`;
+                    if (img) {
+                        img.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                    }
 
                     const smallImg = ref.querySelector('.scroll-zoom-img-small');
-                    if (smallImg) smallImg.style.transform = `scale(${smallScale})`;
+                    if (smallImg) {
+                        smallImg.style.transform = `scale(${smallScale}) translateY(${translateY * 1.5}px)`;
+                    }
                 }
+            });
+
+            // Mobile zoom effect
+            const mobileImages = document.querySelectorAll('.mobile-project-img');
+            mobileImages.forEach(img => {
+                const rect = img.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                const viewCenter = rect.top + rect.height / 2;
+                const viewportCenter = windowHeight / 2;
+                const distanceCenter = Math.abs(viewportCenter - viewCenter);
+                const maxDistance = windowHeight * 0.7;
+                const progress = Math.max(0, 1 - (distanceCenter / maxDistance));
+                
+                // Zoom on mobile: 1.0 to 1.15
+                const scale = 1 + (progress * 0.15);
+                img.style.transform = `scale(${scale})`;
             });
         };
 
@@ -118,7 +149,13 @@ function StickyProjects({ projects }) {
                     padding: '0 4rem 0 2.5rem',
                     marginLeft: 'max(0px, calc((100vw - 1400px) / 2))',
                 }}>
-                    <div key={activeIndex} style={{ animation: 'fadeUp 0.6s ease forwards' }}>
+                    <div 
+                        key={activeIndex} 
+                        style={{ 
+                            animation: 'slideReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                            opacity: 0
+                        }}
+                    >
                         <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "2rem" }}>
                             <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: "rgba(196,184,168,0.5)" }}>({activeProject.index})</span>
                             <div style={{ height: "1px", width: "3rem", backgroundColor: "rgba(196,184,168,0.3)" }} />
@@ -161,10 +198,18 @@ function StickyProjects({ projects }) {
                             style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4rem 2.5rem 4rem 0' }}
                             className="proj-dual-container"
                         >
-                            <div style={{ width: '100%', height: 'calc(100vh - 8rem)', position: 'relative' }}>
+                            <div style={{ width: '100%', height: 'calc(100vh - 8rem)', position: 'relative', overflow: 'hidden' }}>
                                 
                                 {/* Large Background Image */}
-                                <div style={{ position: 'absolute', right: 0, top: 0, width: '75%', height: '100%', overflow: 'hidden' }}>
+                                <div style={{ 
+                                    position: 'absolute', 
+                                    right: 0, 
+                                    top: 0, 
+                                    width: '75%', 
+                                    height: '100%', 
+                                    overflow: 'hidden',
+                                    animation: activeIndex === i ? 'imageSlideIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards' : 'none'
+                                }}>
                                     <img 
                                         src={project.image} 
                                         alt={project.title} 
@@ -181,7 +226,9 @@ function StickyProjects({ projects }) {
                                 <div style={{ 
                                     position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)',
                                     width: '45%', aspectRatio: '4/5', overflow: 'hidden', zIndex: 2,
-                                    boxShadow: '0 20px 40px rgba(0,0,0,0.6)'
+                                    boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
+                                    animation: activeIndex === i ? 'imageSlideInDelayed 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards' : 'none',
+                                    opacity: 0
                                 }}>
                                     <img 
                                         src={project.secondaryImage} 
@@ -193,17 +240,6 @@ function StickyProjects({ projects }) {
                                         }} 
                                     />
                                 </div>
-
-                                {/* Overlay button for image hover (optional) */}
-                                <div className="proj-overlay-scroll" style={{
-                                    position: "absolute", inset: 0, zIndex: 3,
-                                    display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem",
-                                    opacity: 0, transition: "opacity 0.3s ease", backgroundColor: "rgba(13,13,13,0.3)"
-                                }}>
-                                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-pill-light">
-                                        Live Demo <ExternalLink size={14} />
-                                    </a>
-                                </div>
                             </div>
                         </div>
                     ))}
@@ -213,9 +249,20 @@ function StickyProjects({ projects }) {
             {/* Mobile Stacked Layout */}
             <div className="mobile-stacked" style={{ display: 'none', padding: '0 2.5rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                 {projects.map((project, i) => (
-                    <div key={i} style={{ paddingBottom: '5rem' }}>
-                        <div style={{ width: '100%', aspectRatio: '4/3', marginBottom: '2rem', overflow: 'hidden' }}>
-                            <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <div key={i} className="reveal-project" style={{ paddingBottom: '5rem', opacity: 0, transform: 'translateY(40px)', transition: 'all 0.8s ease' }}>
+                        <div style={{ width: '100%', aspectRatio: '4/3', marginBottom: '2rem', overflow: 'hidden', borderRadius: '8px' }}>
+                            <img 
+                                src={project.image} 
+                                alt={project.title} 
+                                className="mobile-project-img"
+                                style={{ 
+                                    width: '100%', 
+                                    height: '100%', 
+                                    objectFit: 'cover',
+                                    transition: 'transform 0.1s ease-out',
+                                    willChange: 'transform'
+                                }} 
+                            />
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.5rem" }}>
                             <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1rem", color: "rgba(196,184,168,0.5)" }}>({project.index})</span>
@@ -244,9 +291,30 @@ function StickyProjects({ projects }) {
             </div>
 
             <style>{`
+                @keyframes slideReveal {
+                    from { opacity: 0; transform: translateX(-30px); }
+                    to { opacity: 1; transform: translateX(0); }
+                }
+                @keyframes imageSlideIn {
+                    from { opacity: 0; transform: translateX(50px); }
+                    to { opacity: 1; transform: translateX(0); }
+                }
+                @keyframes imageSlideInDelayed {
+                    from { opacity: 0; transform: translateX(80px); }
+                    to { opacity: 1; transform: translateX(0); }
+                }
                 @media (max-width: 900px) {
                     .desktop-sticky { display: none !important; }
                     .mobile-stacked { display: block !important; }
+                    #projects > div:first-of-type {
+                        padding: 5rem 1.5rem 2rem !important;
+                    }
+                    #projects > div:last-of-type {
+                        padding: 3rem 1.5rem 6rem !important;
+                    }
+                    .mobile-stacked {
+                        padding: 0 1.5rem !important;
+                    }
                 }
                 .scrolling-img-panel > div:hover .proj-overlay-scroll { opacity: 1 !important; }
             `}</style>
@@ -259,25 +327,31 @@ function StickyProjects({ projects }) {
 /* ─── Main Section ─── */
 export default function Projects() {
     const headerRef = useRef(null);
-    const gridHeaderRef = useRef(null);
+    const sectionRef = useRef(null);
 
     useEffect(() => {
-        const targets = [headerRef.current, gridHeaderRef.current].filter(Boolean);
         const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                }
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform = "translateY(0)";
+                    }
+                });
             },
-            { threshold: 0.15 }
+            { threshold: 0.1 }
         );
-        targets.forEach(t => observer.observe(t));
-        return () => targets.forEach(t => observer.unobserve(t));
+
+        if (headerRef.current) observer.observe(headerRef.current);
+        
+        const mobileCards = sectionRef.current?.querySelectorAll('.reveal-project') ?? [];
+        mobileCards.forEach(card => observer.observe(card));
+
+        return () => observer.disconnect();
     }, []);
 
     return (
-        <section id="projects" style={{ backgroundColor: "#0D0D0D" }}>
+        <section id="projects" ref={sectionRef} style={{ backgroundColor: "#0D0D0D" }}>
 
             {/* ── Section Header ── */}
             <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "8rem 2.5rem 4rem" }}>
